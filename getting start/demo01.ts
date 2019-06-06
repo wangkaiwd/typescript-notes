@@ -1,6 +1,6 @@
 const greeter = (person) => {
   return `Hello, ${person}`;
 };
-let person = 'Jane User';
+let person = 'wangkaiwd';
 
 document.body.innerHTML = greeter(person);
