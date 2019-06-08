@@ -1,6 +1,6 @@
 ## 快速开始
 > 这里使用的是`mac`操作系统
-
+### 编译第一个`.ts`文件
 首先我们通过`yarn`全局安装`typescript`:  
 ```text
 yarn global add typescript
@@ -40,4 +40,28 @@ yarn global add typescript
 tsc demo01.ts
 ```
 这时代码会成功执行。
+
+### 类型注解
+> `TypeScript`里的类型注解是一种轻量级的为函数或变量添加约束的方式
+
+我们希望`greeter`接收的参数为`string`类型：  
+```typescript
+// demo02.ts
+const greeter = (person:string) => {
+  return `Hello, ${person}`;
+};
+const person = [1,2,3]
+greeter(person)
+```
+重新编译：  
+```text
+tsc demo02.ts
+```
+![typeError](./screenshots/typeError.png)
+
+当我们参数的个数传递有问题时，`ts`代码也会报错。从这个`demo`中可以看到`TypeScript`比较强大的地方：  
+* 可以分析传入参数的类型是否正确
+* 可以分析传入参数的数量是否符合要求
+
+不过虽然命令行提示`error`信息，但是代码还是被成功编译成了`js`。就算你的代码里有错误，你仍然可以使用`TypeScript`,但在这种情况下，`TypeScript`会警告你代码可能不会按预期执行。
 
