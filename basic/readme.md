@@ -42,3 +42,34 @@
   let u: undefined = undefined;
   let n: null = null;
   ```
+
+### 任意值
+> 任意值(`any`)用来表示允许赋值为任意类型  
+
+* `any`类型允许被赋值为任意类型：  
+  ```typescript
+  let myFavoriteNumber: string = 'seven';
+  myFavoriteNumber = 7; // Type 'number' is not assignable to type 'string'
+  // 使用any可以赋值为其它类型
+  let myFavoriteNumber: any = 'seven';
+  myFavoriteNumber = 7;
+  ```
+* 任意值的属性和方法(和`js`基本一样)：
+  ```typescript
+  let anyThing: any = 'hello';
+  // 可以访问任意值的任何属性
+  console.log(anyThing.myName)
+  console.log(anyThing.myName.firstName)
+  // 也可以调用任何方法
+  console.log(anyThing.setName('Jerry').sayHello())
+  ```
+* 变量声明时未指定类型会被识别为任意类型：  
+  ```typescript
+  let something;
+  something = 'seven';
+  something = 7;
+  // 等价于
+  let something:any;
+  something = 'seven';
+  something = 7;
+  ```
