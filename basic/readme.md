@@ -73,3 +73,71 @@
   something = 'seven';
   something = 7;
   ```
+### 函数的类型
+* 函数声明
+  ```typescript
+   // javascript
+  function sum(x,y) {
+    return x + y;
+  }
+  // typescript
+  // 我们要为函数的参数以及返回值指定类型
+  function sum(x:number, y:number):number {
+    return x + y;
+  }
+  ```
+* 函数表达式
+  ```typescript
+  // javascript
+  const mySum = function(x,y) {
+    return x + y;
+  }
+  // typescript
+  // 下边代码其实是简写方式
+  // 这里只是定义了 "=" 右侧匿名函数的参数与返回值类型，而左侧的变量mySum是通过类型推断出来的，并没有进行明确指定
+  const mySum = function(x:number, y:number):number {
+    return x+y;
+  }
+  // 完整定义方式：
+  const mySum: (x:number,y:number) => number = function(x:number,y:number):number {
+    return x + y;
+  }
+  // 这里容易和箭头函数混淆，改写为es6箭头函数是这样的：
+  const mySum: (x:number,y:number) => number = (x:number,y:number):number => {
+    return x + y;
+  }
+  ```
+* 用接口定义函数的形状
+  ```typescript
+  interface SearchFunc {
+    (source: string, subString: string): boolean
+  }
+  const mySearch: SearchFunc = (source: string, subString: string) => {
+    return source === subString;
+  };
+  mySearch('1', '2');
+  ```
+* 可选参数
+  ```typescript
+  // 要注意可选参数必须要在必须参数的后面，否则在参数没有传的情况下，会导致形参和实参的对应出错
+  // 这点和javascript中只能有末尾的参数可以省略，否则只能用undefined补齐类似
+  const getFullName = (lastName: string, firstName?: string) => {
+    if (firstName) {
+      return firstName + ' ' + lastName;
+    }
+    return lastName;
+  };
+  // 这时候我们只传一个参数的话: getFullName('Jon')，并不能清楚传入的是firstName还是lastName
+  // const getFullName = (firstName?: string, lastName: string,) => {
+  //   if (firstName) {
+  //     return firstName + ' ' + lastName;
+  //   }
+  //   return lastName;
+  // };
+  getFullName('Yue', 'Jon');
+  ```
+* 参数默认值
+
+* 剩余参数
+
+* 函数重载
