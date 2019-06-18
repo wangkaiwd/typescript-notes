@@ -73,7 +73,31 @@
   something = 'seven';
   something = 7;
   ```
+  
+### 类型推断
+> 如果没有明确的指定类型，那么`TypeScript`会依照类型推论(`Type Inference`)的规则推断出一个类型
+
+我们来对比下边的代码： 
+```typescript
+let myFavoriteNumber = 'seven';
+myFavoriteNumber = 7;
+// error: Type 'number' is not assignable to type 'string'
+
+// 上边的代码等价于
+let myFavoriteNumber: string = 'seven';
+myFavoriteNumber = 7;
+```
+`TypeScript`会在没有明确的指定类型的时候推测出一个类型，而在定义的时候如果没有赋值，就会被推断为`any`类型而完全不被类型检查：  
+```typescript
+let myFavoriteNumber;
+myFavoriteNumber = 'seven';
+myFavoriteNumber = 7
+```
+
+### 联合类型(`Union Types`)
+
 ### 函数的类型
+
 * 函数声明
   ```typescript
    // javascript
