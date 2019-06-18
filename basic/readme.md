@@ -95,6 +95,48 @@ myFavoriteNumber = 7
 ```
 
 ### 联合类型(`Union Types`)
+> 联合类型可以表示取值可以为多种类型中的一种
+
+* 联合类型使用`|`分隔每个类型： 
+  ```typescript
+  // 允许myFavoriteNumber的类型是 string 或 number,不允许其它类型
+  let myFavoriteNumber: string | number;
+  myFavoriteNumber = 'seven';
+  myFavoriteNumber = 7;
+  ```
+
+* 访问联合类型的属性或方法
+  > 当`TypeScript`不确定一个联合类型的变量到底是哪个类型的时候，我们只能**访问此联合类型的所有类型里共有的属性或方法**
+  ```typescript
+  function getLength(something:string|number):(number|string){
+    // return something.length // error, number no length prop
+    return something.toString(); // ok: both number and string has toString method 
+  }
+  ```
+  
+### 接口
+> 在`TypeScript`中的接口是一个非常灵活的概念，除了可用于对类的一部分行为进行抽象以外，也常用于[对象形状(shap)]的描述
+
+这里我们先用接口来描述对象的形状，在进阶章节再学习对类进行抽象。下面是一个例子：  
+```typescript
+interface Person {
+  readonly id: number, // 只读属性
+  name: string,
+  age?: number // 可选属性
+}
+
+const tom: Person = {
+  id: 13,
+  name: 'Tom'
+};
+
+tom.age = 18;
+tom.id = 1; // error: can't assign to 'id' because it is a read-only property
+console.log(tom);
+```
+
+### 数组的类型
+
 
 ### 函数的类型
 
