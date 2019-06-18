@@ -10,5 +10,5 @@ const tom: Person = {
 };
 
 tom.age = 18;
-tom.id = 1; // error: can't assign to 'id' because it is a read-only property
+// tom.id = 1; // error: can't assign to 'id' because it is a read-only property
 console.log(tom);

@@ -136,7 +136,41 @@ console.log(tom);
 ```
 
 ### 数组的类型
-
+* [类型+方括号]表示法
+  ```typescript
+  const array: number[] = [1, 2, 3, 4, 5];
+  // array.push('8') // 在进行相关操作的时候也会进行类型校验
+  // const array1: number[] = [1, '2', 3, 4, 5]; // type 'string' is not assignable to type 'number'
+  ```
+* 数组泛型
+  ```typescript
+  // 使用数组泛型(Array Generic) Array<elemType>来表示数组
+  const array: Array<number> = [1, 2, 3, 4, 5];
+  ```
+* 用接口表示数组
+  ```typescript
+  interface NumberArray {
+    [index: number]: number
+  }
+  const array: NumberArray = [1, 2, 3, 4, 5];
+  array.push(1); // 这样定义的数组没有原型上的方法
+  ```
+* `any`在数组中的应用
+  ```typescript
+  // 定义任意类型的数组
+  const list: any[] = ['wangkaiwd', 25, { website: 'https://www.baidu.com' }];
+  ```
+* 类数组
+  ```typescript
+  // 类数组并不是数组类型，它们有自己单独的类型来进行定义和校验
+  // function sum () {
+  //   const args: number[] = arguments;
+  // }
+  function sum () {
+    const args: IArguments = arguments;
+  }
+  // 类数组也可能会在dom操作中遇到，如 NodeList, HTMLCollection
+  ```
 
 ### 函数的类型
 
