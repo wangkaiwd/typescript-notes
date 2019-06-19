@@ -43,7 +43,7 @@
   let n: null = null;
   ```
 
-### 任意值
+### 任意值 
 > 任意值(`any`)用来表示允许赋值为任意类型  
 
 * `any`类型允许被赋值为任意类型：  
@@ -237,7 +237,26 @@ console.log(tom);
   getFullName('Yue', 'Jon');
   ```
 * 参数默认值
+  ```typescript
+  // ts会将添加了默认值的参数识别为可选参数
+  // 这里我们为firstName指定默认值
+  const buildName = (firstName: string = 'Tom', lastName: string) => {
+    return firstName + ' ' + lastName;
+  }
+
+  // 调用的时候如果参数要是用默认值的话，必须传入undefined
+  console.log(buildName(undefined, 'Cat'))
+  ```
 
 * 剩余参数
+  ```typescript
+  // 这里的剩余参数...items是数组，可以用数组类型来表示
+  const push = (array: any[], ...itmes: any[]) => {
+    itmes.forEach(item => {
+      array.push(item)
+    })
+    return array
+  }
 
-* 函数重载
+  console.log(push([1, 2], 3, 4, 5)) // [1,2,3,4,5]
+  ```
