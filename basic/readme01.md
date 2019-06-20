@@ -38,3 +38,12 @@ console.log(getLength(1234))
 ```
 
 ### 声明文件
+
+#### 声明语句
+#### 声明文件
+#### 第三方声明文件
+推荐通过`@types`统一管理第三方库的声明文件：  
+```typescript
+// 以jquery为例：
+yarn add @types/jquery
+```
