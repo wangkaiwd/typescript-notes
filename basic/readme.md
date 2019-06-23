@@ -135,6 +135,39 @@ tom.id = 1; // error: can't assign to 'id' because it is a read-only property
 console.log(tom);
 ```
 
+了解了接口的初步概念之后，我们用它来描述一个复杂的对象：  
+```typescript
+interface ThinkProp {
+  most: string,
+  secondary: string
+}
+interface HobbyProp {
+  id: number;
+  item: string;
+}
+interface PersonProp {
+  name: string;
+  age: number;
+  run(): void;
+  eat(a: string, b: string): void;
+  hobby: Array<HobbyProp>;
+  think: ThinkProp;
+}
+const object: PersonProp = {
+  name: 'wangkai',
+  age: 18,
+  run: function () {
+    console.log('run')
+  },
+  eat: function (a, b) {
+    console.log(`eat ${a} and ${b}`)
+  },
+  hobby: [{ id: 1, item: 'hobby1' }, { id: 2, item: 'hobby2' }],
+  think: { most: 'life', secondary: 'others' }
+}
+console.log('object', object)
+```
+
 ### 数组的类型
 * [类型+方括号]表示法
   ```typescript
@@ -260,3 +293,28 @@ console.log(tom);
 
   console.log(push([1, 2], 3, 4, 5)) // [1,2,3,4,5]
   ```
+
+### 元祖
+元祖类型允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。定义一对值分别为`string`和`number`的元祖：  
+```typescript
+// const 声明的变量不能改变值，这意味着，const 一旦声明变量就必须立即初始化，不能留到以后赋值
+// 所以没有初始值的情况下只能使用let来定义
+let array: [string, number];
+// 元祖其实就是固定长度以及数组中元素类型的数组，可以使用数组的属性和方法
+// 赋值
+array = ['hello', 1];
+// 访问值以及使用一些方法
+console.log(array[0].slice(1), array[1].toFixed(2));
+```
+
+当我们访问一个越界（超过当前元祖定义的数组长度范围）的元素时，会使用联合类型来进行替代当前元素的类型： 
+```typescript
+let array: [string, number];
+array = ['hello', 1];
+
+array.push(2);
+array.push('string');
+// 当添加越界的元素时，它的类型会被限制为元祖中每个类型的联合类型（这里就是 string|number）
+// true是boolean,并不属性string或者number
+array.push(true); // Argument of type 'true' is not assignable to parameter of type 'string | number'
+```

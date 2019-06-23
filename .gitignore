@@ -14,7 +14,7 @@
 # ide
 .vscode
 .idea
-
+**/*.js
 # misc
 .DS_Store
 .env.local
