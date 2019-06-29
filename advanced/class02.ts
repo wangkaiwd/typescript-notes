@@ -5,7 +5,7 @@ interface Alarm {
   alert (): string;
 }
 
-// LightbaleAlarm不仅有Alarm的类型，还有自己添加的一些类型
+// LightbaleAlarm继承Alarm,不仅有Alarm的类型，还有自己添加的一些类型
 interface LightableAlarm extends Alarm {
   lightOn (): number;
 
