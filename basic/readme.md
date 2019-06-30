@@ -1,46 +1,69 @@
-## 基础
-### 原始数据类型
-#### 1. 布尔值
+## 基础语法
+> 这里我们通过与`javascript`进行类比来学习会更容易一些
+
+### 布尔值
 > `TypeScript`中，`boolean`是`JavaScript`中的基本类型，而`Boolean`是`JavaScript`中的构造函数，其它基本数据类型也一样（除`null`和`undefined`）
 
-* 使用`boolean`定义布尔值类型：  
-  ```typescript
-  // 1. 直接定义
-  let isDone: boolean = false
-  // 2. 通过Boolean定义
-  let createByBoolean: boolean = Boolean(1)
-  // 3. 使用构造函数创建的对象不是布尔值
-  let createByNewBoolean: boolean = new Boolean(1) 
-  // error: Type 'Boolean' is not assignable to type 'boolean'.
-  let createByNewBoolean: Boolean = new Boolean(1) // 成功编译
-  ```
+使用`boolean`定义布尔值类型：  
+```typescript
+// 1. 直接定义
+let isDone: boolean = false
+// 2. 通过Boolean定义
+let createByBoolean: boolean = Boolean(1)
+// 3. 使用构造函数创建的对象不是布尔值
+let createByNewBoolean: boolean = new Boolean(1) 
+// error: Type 'Boolean' is not assignable to type 'boolean'.
+let createByNewBoolean: Boolean = new Boolean(1) // 成功编译
+```
 
-#### 2. 数值
-* 使用`number`定义数值类型：  
-  ```typescript
-  let decLiteral:number = 6;
-  let notANumber:number = NaN;
-  let infinityNumber:number = Infinity
-  ```
-#### 3. 字符串
-* 使用`string`定义字符串类型：  
-  ```typescript
-  let myName: string = 'Tom';
-  ```
-
-#### 4. 空值
+### 数值
+使用`number`定义数值类型：  
+```typescript
+let decLiteral:number = 6;
+let notANumber:number = NaN;
+let infinityNumber:number = Infinity
+```
+### 字符串
+使用`string`定义字符串类型：  
+```typescript
+let myName: string = 'Tom';
+```
+  
+### `null`和`undefined`
+使用`null`和`undefined`来定义：  
+```typescript
+let u: undefined = undefined;
+let n: null = null;
+```
+### 数组的类型
+#### [类型+方括号]表示法
+```typescript
+const array: number[] = [1, 2, 3, 4, 5];
+// array.push('8') // 在进行相关操作的时候也会进行类型校验
+// const array1: number[] = [1, '2', 3, 4, 5]; // type 'string' is not assignable to type 'number'
+```
+#### 数组泛型
+```typescript
+// 使用数组泛型(Array Generic) Array<elemType>来表示数组
+const array: Array<number> = [1, 2, 3, 4, 5];
+```
+#### 类数组
+```typescript
+// 类数组并不是数组类型，它们有自己单独的类型来进行定义和校验
+// function sum () {
+//   const args: number[] = arguments;
+// }
+function sum () {
+  const args: IArguments = arguments;
+}
+// 类数组也可能会在dom操作中遇到，如 NodeList, HTMLCollection
+```
+### 空值
 * 用`void`表示没有任何返回值的函数  
   ```typescript
   function alertName():void{
     alert('my name is Tome')
   }
-  ```
-  
-#### 5. `null`和`undefined`
-* 使用`null`和`undefined`来定义：  
-  ```typescript
-  let u: undefined = undefined;
-  let n: null = null;
   ```
 
 ### 任意值 
@@ -74,226 +97,6 @@
   something = 7;
   ```
   
-### 类型推断
-> 如果没有明确的指定类型，那么`TypeScript`会依照类型推论(`Type Inference`)的规则推断出一个类型
-
-我们来对比下边的代码： 
-```typescript
-let myFavoriteNumber = 'seven';
-myFavoriteNumber = 7;
-// error: Type 'number' is not assignable to type 'string'
-
-// 上边的代码等价于
-let myFavoriteNumber: string = 'seven';
-myFavoriteNumber = 7;
-```
-`TypeScript`会在没有明确的指定类型的时候推测出一个类型，而在定义的时候如果没有赋值，就会被推断为`any`类型而完全不被类型检查：  
-```typescript
-let myFavoriteNumber;
-myFavoriteNumber = 'seven';
-myFavoriteNumber = 7
-```
-
-### 联合类型(`Union Types`)
-> 联合类型可以表示取值可以为多种类型中的一种
-
-* 联合类型使用`|`分隔每个类型： 
-  ```typescript
-  // 允许myFavoriteNumber的类型是 string 或 number,不允许其它类型
-  let myFavoriteNumber: string | number;
-  myFavoriteNumber = 'seven';
-  myFavoriteNumber = 7;
-  ```
-
-* 访问联合类型的属性或方法
-  > 当`TypeScript`不确定一个联合类型的变量到底是哪个类型的时候，我们只能**访问此联合类型的所有类型里共有的属性或方法**
-  ```typescript
-  function getLength(something:string|number):(number|string){
-    // return something.length // error, number no length prop
-    return something.toString(); // ok: both number and string has toString method 
-  }
-  ```
-  
-### 接口
-> 在`TypeScript`中的接口是一个非常灵活的概念，除了可用于对类的一部分行为进行抽象以外，也常用于[对象形状(shap)]的描述
-
-这里我们先用接口来描述对象的形状，在进阶章节再学习对类进行抽象。下面是一个例子：  
-```typescript
-interface Person {
-  readonly id: number, // 只读属性
-  name: string,
-  age?: number // 可选属性
-}
-
-const tom: Person = {
-  id: 13,
-  name: 'Tom'
-};
-
-tom.age = 18;
-tom.id = 1; // error: can't assign to 'id' because it is a read-only property
-console.log(tom);
-```
-
-了解了接口的初步概念之后，我们用它来描述一个复杂的对象：  
-```typescript
-interface ThinkProp {
-  most: string,
-  secondary: string
-}
-interface HobbyProp {
-  id: number;
-  item: string;
-}
-interface PersonProp {
-  name: string;
-  age: number;
-  run(): void;
-  eat(a: string, b: string): void;
-  hobby: Array<HobbyProp>;
-  think: ThinkProp;
-}
-const object: PersonProp = {
-  name: 'wangkai',
-  age: 18,
-  run: function () {
-    console.log('run')
-  },
-  eat: function (a, b) {
-    console.log(`eat ${a} and ${b}`)
-  },
-  hobby: [{ id: 1, item: 'hobby1' }, { id: 2, item: 'hobby2' }],
-  think: { most: 'life', secondary: 'others' }
-}
-console.log('object', object)
-```
-
-### 数组的类型
-* [类型+方括号]表示法
-  ```typescript
-  const array: number[] = [1, 2, 3, 4, 5];
-  // array.push('8') // 在进行相关操作的时候也会进行类型校验
-  // const array1: number[] = [1, '2', 3, 4, 5]; // type 'string' is not assignable to type 'number'
-  ```
-* 数组泛型
-  ```typescript
-  // 使用数组泛型(Array Generic) Array<elemType>来表示数组
-  const array: Array<number> = [1, 2, 3, 4, 5];
-  ```
-* 用接口表示数组
-  ```typescript
-  interface NumberArray {
-    [index: number]: number
-  }
-  const array: NumberArray = [1, 2, 3, 4, 5];
-  array.push(1); // 这样定义的数组没有原型上的方法
-  ```
-* `any`在数组中的应用
-  ```typescript
-  // 定义任意类型的数组
-  const list: any[] = ['wangkaiwd', 25, { website: 'https://www.baidu.com' }];
-  ```
-* 类数组
-  ```typescript
-  // 类数组并不是数组类型，它们有自己单独的类型来进行定义和校验
-  // function sum () {
-  //   const args: number[] = arguments;
-  // }
-  function sum () {
-    const args: IArguments = arguments;
-  }
-  // 类数组也可能会在dom操作中遇到，如 NodeList, HTMLCollection
-  ```
-
-### 函数的类型
-
-* 函数声明
-  ```typescript
-   // javascript
-  function sum(x,y) {
-    return x + y;
-  }
-  // typescript
-  // 我们要为函数的参数以及返回值指定类型
-  function sum(x:number, y:number):number {
-    return x + y;
-  }
-  ```
-* 函数表达式
-  ```typescript
-  // javascript
-  const mySum = function(x,y) {
-    return x + y;
-  }
-  // typescript
-  // 下边代码其实是简写方式
-  // 这里只是定义了 "=" 右侧匿名函数的参数与返回值类型，而左侧的变量mySum是通过类型推断出来的，并没有进行明确指定
-  const mySum = function(x:number, y:number):number {
-    return x+y;
-  }
-  // 完整定义方式：
-  const mySum: (x:number,y:number) => number = function(x:number,y:number):number {
-    return x + y;
-  }
-  // 这里容易和箭头函数混淆，改写为es6箭头函数是这样的：
-  const mySum: (x:number,y:number) => number = (x:number,y:number):number => {
-    return x + y;
-  }
-  ```
-* 用接口定义函数的形状
-  ```typescript
-  interface SearchFunc {
-    (source: string, subString: string): boolean
-  }
-  const mySearch: SearchFunc = (source: string, subString: string) => {
-    return source === subString;
-  };
-  mySearch('1', '2');
-  ```
-* 可选参数
-  ```typescript
-  // 要注意可选参数必须要在必须参数的后面，否则在参数没有传的情况下，会导致形参和实参的对应出错
-  // 这点和javascript中只能有末尾的参数可以省略，否则只能用undefined补齐类似
-  const getFullName = (lastName: string, firstName?: string) => {
-    if (firstName) {
-      return firstName + ' ' + lastName;
-    }
-    return lastName;
-  };
-  // 这时候我们只传一个参数的话: getFullName('Jon')，并不能清楚传入的是firstName还是lastName
-  // const getFullName = (firstName?: string, lastName: string,) => {
-  //   if (firstName) {
-  //     return firstName + ' ' + lastName;
-  //   }
-  //   return lastName;
-  // };
-  getFullName('Yue', 'Jon');
-  ```
-* 参数默认值
-  ```typescript
-  // ts会将添加了默认值的参数识别为可选参数
-  // 这里我们为firstName指定默认值
-  const buildName = (firstName: string = 'Tom', lastName: string) => {
-    return firstName + ' ' + lastName;
-  }
-
-  // 调用的时候如果参数要是用默认值的话，必须传入undefined
-  console.log(buildName(undefined, 'Cat'))
-  ```
-
-* 剩余参数
-  ```typescript
-  // 这里的剩余参数...items是数组，可以用数组类型来表示
-  const push = (array: any[], ...itmes: any[]) => {
-    itmes.forEach(item => {
-      array.push(item)
-    })
-    return array
-  }
-
-  console.log(push([1, 2], 3, 4, 5)) // [1,2,3,4,5]
-  ```
-
 ### 元祖
 元祖类型允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。定义一对值分别为`string`和`number`的元祖：  
 ```typescript
@@ -343,3 +146,6 @@ let unusable: void = undefined;
 
 ### `never`
 `never`类型表示的是哪些永不存在的值的类型
+  
+
+
