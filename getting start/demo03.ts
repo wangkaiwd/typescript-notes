@@ -7,6 +7,6 @@ const greeter = (person: Person) => {
   return `Hello, ${person.firstName} ${person.lastName}`;
 };
 
-const person = {firstName: 'wang', lastName: 'kaiwd'};
+const person = { firstName: 'name1', lastName: 'name2' };
 
-greeter(person);
+console.log(greeter(person));

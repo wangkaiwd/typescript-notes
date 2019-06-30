@@ -3,4 +3,4 @@ const greeter = (person) => {
 };
 let person = 'wangkaiwd';
 
-document.body.innerHTML = greeter(person);
+console.log(person);
