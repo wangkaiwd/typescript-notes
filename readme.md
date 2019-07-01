@@ -6,5 +6,5 @@
 
 * [快速开始](./getting%20start/readme.md)
 * [基础类型](./basic/readme.md)
-* [案例实践]
+* 案例实践
 * 用`TypeScript`操作`DOM`
