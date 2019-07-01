@@ -66,6 +66,16 @@ node demo01.js
 ```
 ![node-execute](./screenshots/node-execute.png)
 
+小伙伴们可能发现了，每次都要将`TypeScript`编译成`JavaScript`，然后在通过`Node`来运行会有一些繁琐，有没有什么办法可以直接通过`node`命令来运行`.ts`文件。  
+
+经过一番查找，我找到了`ts-node`这个库，可以在`node`中运行`TypeScript`，极大的便利了我们的学习。
+```npm
+# 生成package.json来进行包管理
+yarn init -y
+# 安装ts-node第三方模块
+yarn add ts-node -D
+```
+
 接下来我们就通过这个套路愉快的学习吧
 
 ### 类型注解
@@ -84,8 +94,7 @@ console.log(greeter(person));
 ```
 重新编译：  
 ```npm
-tsc demo02.ts
-node demo02.js
+npx ts-node demo02.ts
 ```
 命令行依旧会成功输出： `Hello, wangkaiwd`。
 
