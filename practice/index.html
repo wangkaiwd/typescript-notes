@@ -11,17 +11,17 @@
       box-sizing: border-box;
     }
     .calculator {
-      display: flex;
-      flex-wrap: wrap;
       width: 400px;
     }
     .calculator-content {
-      width: 100%;
-      margin: 0 -4px;
+      display: flex;
+      flex-wrap: wrap;
+      border: 1px solid pink;
     }
     .calculator .col {
-      padding: 0 4px;
+      padding: 4px;
       width: 25%;
+      flex-shrink: 0;
     }
     .calculator .clear {
       width: 75%;
@@ -35,10 +35,13 @@
       color: #202124;
       border: 1px solid #f1f3f4;
       border-radius: 4px;
-      margin: 4px;
       height: 36px;
       outline: none;
       font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #d7d9dd;
     }
   </style>
 </head>

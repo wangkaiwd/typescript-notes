@@ -10,7 +10,7 @@ const createButton = (content: string, className?: string): void => {
     div.classList.add(className);
   }
   div.appendChild(button);
-  document.querySelector('.calculator').appendChild(div);
+  document.querySelector('.calculator-content').appendChild(div);
 };
 
 'Clear,÷,7,8,9,×,4,5,6,-,1,2,3,+,0,.,='.split(',')
