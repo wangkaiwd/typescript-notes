@@ -115,7 +115,7 @@ const person = 'wangkaiwd';
 console.log(greeter(person));
 ``` 
 
-经过我们的尝试，可以看到`TypeScript`比较强大的地方：  
+经过我们的尝试，可以感受到`TypeScript`比较强大的地方：  
 * 可以分析传入参数的类型是否正确
 * 可以分析传入参数的数量是否符合要求
 * `null`和`undefined`是所有类型的子类型，这里可以把`null`和`undefined`赋值给`string`类型的变量。我们可以在配置文件中指定`--strictNullChecks`标记，这样`null`和`undefined`就只能赋值给`void`和它们各自，这能避免很多常见的问题
