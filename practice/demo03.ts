@@ -22,13 +22,15 @@
 // 知识点：
 //    1. ！非空断言操作符
 //    2. 类型断言
+
+// 优化点： 1. 使用事件代理  2. 通过class来组织代码
 interface ResultMap {
   [key: string]: number
 }
 const texts: string[] = ['clear', '÷', '7', '8', '9', '×', '4', '5', '6', '-', '1', '2', '3', '+', '0', '.', '='];
 const createButton = (content: string, className?: string): void => {
   const button: HTMLButtonElement = document.createElement('button');
-  const div: HTMLElement = document.createElement('div');
+  const div: HTMLDivElement = document.createElement('div');
   button.innerText = content;
   button.classList.add('button');
   div.classList.add('col');
@@ -45,10 +47,10 @@ const appendButtons = (): void => {
   });
 };
 const createResultBox = () => {
-  const div: HTMLElement = document.createElement('div');
+  const div: HTMLDivElement = document.createElement('div');
   div.classList.add('result-box');
   div.innerText = '0';
-  (<HTMLElement>document.querySelector('.calculator')).appendChild(div);
+  (<HTMLDivElement>document.querySelector('.calculator')).appendChild(div);
 };
 const removeZero = (result: string): string => {
   if (result.indexOf('0') === 0 && result.length > 1) {
@@ -70,9 +72,10 @@ const bindEvent = (): void => {
   // !: https://stackoverflow.com/questions/43951090/typescript-object-is-possibly-null
   // 当我们确认当前值既不是null也不是undefined但是编译器不知道的时候，你能使用non-null(非空)断言操作符!来向编译
   // 器传达这个信息。
-  const result: HTMLElement = document.querySelector<HTMLElement>('.result-box')!;
+  const result: HTMLDivElement = document.querySelector<HTMLDivElement>('.result-box')!;
   let cache: number = 0;
   let operator: string;
+  // 这里可以用事件代理来减少监听器，进行代码优化
   buttons.forEach((button: HTMLButtonElement) => {
     button.addEventListener('click', () => {
       const text: string = button.innerText;
