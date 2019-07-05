@@ -6,6 +6,21 @@
 //    1. 做出计算界面
 //    2. 实现加减乘除四则运算
 
+// 阻止自己的难点 ：
+//    1. 如何生成按钮文字：可以通过将所有文字组成一个数组来进行遍历生成
+//    2. 如何动态生成页面的布局：
+//          a. 动态创建button,为button添加类 .button
+//          b. 为了兼容布局，又为button外层嵌套了div,实现了等间距布局
+//          c. 只想到了为单独有区别的按钮设置样式，导致样式处理困难
+//    3. 如何处理运算逻辑：有那么多的按钮，我该如何根据点击不同按钮做不同的事情
+// 比较优雅的解决方案：
+//    1. 如何生成按钮文字：可以将按钮文字组合为二维数组，一维数组中的每一项插入到div中，二维数组中的每一项插入到button中，可以轻松生成对应的页面结构
+//    2. 生成布局： 由于有了比较好的数组结构，所以布局生成比较容易，唯一需要注意的是在遍历生成的过程中为每一个按钮拼接了class，这样极大的方便了之后样式的修改
+//    3. 如何处理运算逻辑： 可以将相同逻辑进行字符串或者数组分类，这样就可以通过indexOf或者includes等api来进行很好的区分处理
+
+// 知识点：
+//    1. ！非空断言操作符
+//    2. 类型断言
 interface ResultMap {
   [key: string]: number
 }
@@ -23,19 +38,24 @@ const createButton = (content: string, className?: string): void => {
   // 强制断言为HTMLElement
   document.querySelector('.calculator')!.appendChild(div);
 };
+const appendButtons = (): void => {
+  texts.forEach((item: string): void => {
+    createButton(item, `item-${item}`);
+  });
+};
 const createResultBox = () => {
   const div: HTMLElement = document.createElement('div');
   div.classList.add('result-box');
   div.innerText = '0';
   (<HTMLElement>document.querySelector('.calculator')).appendChild(div);
 };
-const removeZero = (result: string) => {
+const removeZero = (result: string): string => {
   if (result.indexOf('0') === 0 && result.length > 1) {
     return result.slice(1);
   }
   return result;
 };
-const calculateResult = (number1: number, number2: number, operator: string) => {
+const calculateResult = (number1: number, number2: number, operator: string): number => {
   const resultMap: ResultMap = {
     '+': number1 + number2,
     '-': number1 - number2,
@@ -44,7 +64,7 @@ const calculateResult = (number1: number, number2: number, operator: string) => 
   };
   return resultMap[operator];
 };
-const bindEvent = () => {
+const bindEvent = (): void => {
   const buttons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.button');
   // !: https://stackoverflow.com/questions/43951090/typescript-object-is-possibly-null
   // 当我们确认当前值既不是null也不是undefined但是编译器不知道的时候，你能使用non-null(非空)断言操作符!来向编译
@@ -55,8 +75,7 @@ const bindEvent = () => {
   buttons.forEach((button: HTMLButtonElement) => {
     button.addEventListener('click', () => {
       const text: string = button.innerText;
-      // 并不用单独判断每一个值，可以将相同类型的值组成一个数组或者字符串，使用字符串的方法来进行操作
-      if ('0123456789'.indexOf(text) > -1) {
+      if ('0123456789.'.indexOf(text) > -1) {
         result.innerText = removeZero(result.innerText + text);
       } else if ('+-×÷'.indexOf(text) > -1) {
         operator = text;
@@ -74,9 +93,7 @@ const bindEvent = () => {
 };
 
 createResultBox();
-texts.forEach((item: string): void => {
-  createButton(item, `item-${item}`);
-});
+appendButtons();
 bindEvent();
 
 
