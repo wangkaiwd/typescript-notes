@@ -9,6 +9,14 @@
   <style>
     * {
       box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .calculator {
       display: inline-flex;
@@ -30,6 +38,16 @@
     .calculator .item-0 {
       width: 50%;
     }
+    .item-\+ .button,
+    .item-- .button,
+    .item-× .button,
+    .item-÷ .button {
+      background-color: #dfe1e5;
+    }
+    .item-\= .button {
+      background-color: #4285f4;
+      color: white;
+    }
     .button {
       width: 100%;
       background: #f1f3f4;
@@ -40,6 +58,7 @@
       outline: none;
       font-size: 16px;
       cursor: pointer;
+      user-select: none;
     }
     .button:hover {
       background-color: #d7d9dd;
