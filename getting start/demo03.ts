@@ -10,3 +10,4 @@ const greeter = (person: Person) => {
 const person = { firstName: 'name1', lastName: 'name2' };
 
 console.log(greeter(person));
+export {};
