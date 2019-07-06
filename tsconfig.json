@@ -2,10 +2,10 @@
   "compilerOptions": {
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "module": "es6",
-    "lib": [
-      "es2015",
-      "es2016"
-    ]
+//    "module": "es6",
+//    "lib": [
+//      "es2015",
+//      "es2016"
+//    ]
   }
 }

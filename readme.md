@@ -5,5 +5,11 @@
 > * [`TypeScript`入门教程](https://ts.xcatliu.com/)
 
 * [快速开始](./getting%20start/readme.md)
-* [数据类型](./basic/readme.md)
+* [数据类型](./dataTypes/readme.md)
 * 案例实践
+
+
+### `todo`
+
+1. `tuple`、`emnu`(进一步理解)、`never`
+2. 用面向对象优化计算器
