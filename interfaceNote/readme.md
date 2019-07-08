@@ -1,3 +1,53 @@
 ## `TypeScript`接口
 在`TypeScript`中，接口使用来描述对象应该有哪些属性以及属性对应的类型。  
 
+这里我们通过一个打印姓名的函数来进行接口使用的代码演示：
+```typescript
+// 接口是用来描述对象应该有哪些属性以及属性对应的类型
+// const printName = (human: { name: string }) => {
+//   console.log(human.name);
+// };
+// // 这里我们传入了很多属性，但是typescript只会检查必要的属性(label)是否存在，并且其类型是否匹配
+// const human = { name: 'wangkaiwd' };
+// printName(human);
+
+// 用接口改写这个例子
+interface Human {
+  name: string;
+}
+
+const printLabel = (human: Human) => {
+  console.log(human.name);
+};
+
+const human = { name: 'wangkaiwd' };
+printLabel(human);
+```
+
+### 可选属性和只读属性
+接口中的可选属性是在属性后加`?`,而只读属性是在属性前加`readonly`。下面是一个例子：  
+```typescript
+interface Human {
+  name?: string;
+  age?: number;
+  readonly gender: string;
+}
+// 可选属性的好处：
+//    1. 对可能存在的属性进行预先定义，可以让开发者更加清楚的直到哪些参数可能会不传
+//    2. 当我们使用接口中不存在的对象属性时候会有错误提示，而不是得到undefined
+const printNameOrAge = (human: Human) => {
+  let newHuman: Human = { gender: 'woman' };
+  // 只读属性不可以重新赋值来改变
+  // human.gender = 'woman';
+  if (human.name) {
+    newHuman.name = human.name;
+  }
+  if (human.age) {
+    newHuman.age = human.age;
+  }
+  console.log(newHuman);
+};
+const human = { name: 'wangkaiwd', age: 12, gender: 'man' };
+printNameOrAge(human);
+```
+
