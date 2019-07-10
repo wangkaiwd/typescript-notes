@@ -50,4 +50,35 @@ const printNameOrAge = (human: Human) => {
 const human = { name: 'wangkaiwd', age: 12, gender: 'man' };
 printNameOrAge(human);
 ```
+### 复杂对象
+接下来我们用接口来描述一个稍微复杂一些的对象：  
+```typescript
+interface Human {
+  name: string;
+  age: number;
+  readonly gender: string;
+  score: {
+    music: number,
+    sport: number
+  };
+  likeGames?: string[];
 
+  say (word: string): void;
+}
+
+// 定义一个稍微复杂一些的对象
+const human: Human = {
+  name: 'wangkaiwd',
+  age: 12,
+  gender: 'man',
+  score: { music: 10, sport: 6 },
+  likeGames: ['吃鸡', '王者荣耀', '古代战争'],
+  say (word: string) {
+    console.log(`${this.name} say: ${word}`);
+  }
+};
+human.say('I am saying');
+```
+这里我们通过一个`human`的对象的`interface`来学习如何通过接口来定义对象属性是一个对象、数组以及函数，进一步加深我们对接口的理解。
+
+### 用接口描述函数

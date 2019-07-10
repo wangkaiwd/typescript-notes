@@ -3,7 +3,7 @@ interface SquareConfig {
   height: number;
   color?: string;
 
-  [propName: string]: any; // 支持任意类型的对象属性，相当对除width,height,color之外的其它属性不进行类型检查
+  [propName: string]: any; // 支持任意类型的对象属性，相当于对除width,height,color之外的其它属性不进行类型检查
 
   // [propName: string]: string;
   // 这样定义的意思是说，接口的所有属性都要满足这个类型：key是字符串类型,value也是字符串类型。
