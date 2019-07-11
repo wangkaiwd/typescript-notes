@@ -81,4 +81,42 @@ human.say('I am saying');
 ```
 这里我们通过一个`human`的对象的`interface`来学习如何通过接口来定义对象属性是一个对象、数组以及函数，进一步加深我们对接口的理解。
 
-### 用接口描述函数
+### 用接口来描述函数
+
+我们先写一个求和的函数，然后用接口来描述它的类型：  
+```typescript
+interface Add {
+  // 描述当前函数：参数和返回值
+  (a: number, b: number): number;
+}
+const add: Add = (a, b) => {
+  return a + b;
+};
+console.log('add', add(1, 2)); // 3
+```
+
+但是如果这个函数的属性依旧是一个函数该怎么办呢？  
+```typescript
+interface Add {
+  // 描述当前函数：参数和返回值
+  (a: number, b: number): number;
+
+  // 当前函数的属性opposite也是一个函数
+  opposite (a: number, b: number): number
+}
+const add: Add = (() => {
+  const x: any = (a: number, b: number) => {
+    return a + b;
+  };
+  x.opposite = (a: number, b: number) => {
+    return a - b;
+  };
+  return x;
+})();
+console.log('add', add.opposite(2, 1));
+```
+这里我们通过一个自执行函数来让返回值符合接口描述的类型
+
+### 用接口来描述数组
+
+
