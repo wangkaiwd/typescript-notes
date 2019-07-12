@@ -85,5 +85,81 @@ class Calculator {
 }
 ```
 
-我们将计算器中的按钮定义为一个数组，然后遍历数组，将每个按钮插入到页面中。在插入时，我们为每个按钮添加了对应的`class`，这可以帮助我们方便的对样式进行修改
+我们将计算器中的按钮定义为一个数组，然后遍历数组，将每个按钮插入到页面中。在插入时，我们为每个按钮添加了对应的`class`，这可以帮助我们方便的对样式进行修改。
 
+当我们把按钮插入到页面中就会发现计算器的按钮已经按照布局排列完毕。
+
+接下来我们需要对输入的内容及计算结果进行一个展示，这里我们写一个`createResultBox`函数，并在创建`buttons`之前执行它：  
+```typescript
+constructor (selector: string) {
+  this.element = document.querySelector<HTMLElement>(selector)!;
+  this.createResultBox();
+  this.initButtons();
+}
+createResultBox () {
+  const div: HTMLDivElement = document.createElement('div');
+  div.classList.add('result-box');
+  div.innerText = this.result;
+  this.element.appendChild(div);
+  this.resultBox = div;
+}
+```
+
+`resultBox`中需要展示的内容是计算后的结果，而对于计算过程，我们需要通过监听整个计算器元素即`.calculator`对应的元素的点击事件来实现：  
+```typescript
+bindEvent (): void {
+  // 事件代理
+  this.element.addEventListener('click', (e: MouseEvent) => {
+    // e.target：指向事件触发的元素
+    // e.currentTarget: 指向事件绑定的元素
+    if (e.target instanceof HTMLElement) {
+      const text: string = e.target.innerText;
+      if ('0123456789.'.indexOf(text) !== -1) {
+        this.result = this.result + text;
+        this.resultBox.innerText = this.removeZero(this.result);
+      } else if ('+-x/'.indexOf(text) > -1) {
+        this.cache = this.result;
+        this.operator = text;
+        this.resultBox.innerText = this.result = '0';
+      } else if ('='.indexOf(text) === 0) {
+        if (this.operator) {
+          this.result = this.getResult(this.cache, this.result, this.operator);
+          this.resultBox.innerText = this.result;
+        }
+      } else {
+        this.result = '0';
+        this.cache = '0';
+        this.resultBox.innerText = '0';
+      }
+    }
+  });
+}
+removeZero (result: string): string {
+  if (result.indexOf('0') === 0 && result.length > 0) {
+    result = result.slice(1);
+  }
+  return result;
+}
+
+getResult (n1: string, n2: string, operator: string): string {
+  const newN1 = Number(n1), newN2 = Number(n2);
+  const resultMap: ResultMap = {
+    '+': newN1 + newN2,
+    '-': newN1 - newN2,
+    'x': newN1 * newN2,
+    '/': newN1 / newN2
+  };
+  return resultMap[operator].toString();
+}
+```
+
+在监听事件的时候，我们用到了事件委托的技巧。相比于为每一个子元素监听`click`事件，事件委托减少了监听器的数量，只需要通过`event.target`就可以获取到当前操作的元素，是一个很好的实战运用。
+
+在计算结果的过程中，我们又新创建了俩个函数，用来对`resultBox`中相加结果以0开头的字符串进行处理，以及在点击操作符的时候获得运算结果。
+
+#### 小结
+目前为止，我们的应用还存在许多的`bug`，但是尽管不甚完美，我们亦从中获得了许多知识：  
+* 为一个`DOM`元素指定类型
+* 非空断言操作符: `!`
+* `TypeScript`中`class`语法的应用
+* 通过事件代理来优化代码，减少监听器

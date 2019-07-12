@@ -2,6 +2,7 @@ var Calculator = /** @class */ (function () {
     function Calculator(selector) {
         this.textList = ['clear', '/', '7', '8', '9', 'x', '4', '5', '6', '-', '1', '2', '3', '+', '0', '.', '='];
         this.result = '0';
+        this.cache = '0';
         this.element = document.querySelector(selector);
         this.createResultBox();
         this.initButtons();
@@ -43,6 +44,20 @@ var Calculator = /** @class */ (function () {
                     _this.resultBox.innerText = _this.removeZero(_this.result);
                 }
                 else if ('+-x/'.indexOf(text) > -1) {
+                    _this.cache = _this.result;
+                    _this.operator = text;
+                    _this.resultBox.innerText = _this.result = '0';
+                }
+                else if ('='.indexOf(text) === 0) {
+                    if (_this.operator) {
+                        _this.result = _this.getResult(_this.cache, _this.result, _this.operator);
+                        _this.resultBox.innerText = _this.result;
+                    }
+                }
+                else {
+                    _this.result = '0';
+                    _this.cache = '0';
+                    _this.resultBox.innerText = '0';
                 }
             }
         });
@@ -54,6 +69,14 @@ var Calculator = /** @class */ (function () {
         return result;
     };
     Calculator.prototype.getResult = function (n1, n2, operator) {
+        var newN1 = Number(n1), newN2 = Number(n2);
+        var resultMap = {
+            '+': newN1 + newN2,
+            '-': newN1 - newN2,
+            'x': newN1 * newN2,
+            '/': newN1 / newN2
+        };
+        return resultMap[operator].toString();
     };
     return Calculator;
 }());
