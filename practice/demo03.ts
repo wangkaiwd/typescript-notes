@@ -1,12 +1,3 @@
-// 目前小结：
-//    1. 将css样式进行了初步的搭建
-//    2. 动态创建计算器的按钮
-
-// 接下来的计划：
-//    1. 做出计算界面
-//    2. 实现加减乘除四则运算
-
-// 过程中碰到的小问题：如何输入÷,×符号
 // 阻止自己的难点 ：
 //    1. 如何生成按钮文字：可以通过将所有文字组成一个数组来进行遍历生成
 //    2. 如何动态生成页面的布局：
@@ -19,6 +10,9 @@
 //    2. 生成布局： 由于有了比较好的数组结构，所以布局生成比较容易，唯一需要注意的是在遍历生成的过程中为每一个按钮拼接了class，这样极大的方便了之后样式的修改
 //    3. 如何处理运算逻辑： 可以将相同逻辑进行字符串或者数组分类，这样就可以通过indexOf或者includes等api来进行很好的区分处理
 
+// 冷知识：
+// 这里的运算符是可以通过输入法的符号来进行输入： ÷×
+
 // 知识点：
 //    1. ！非空断言操作符
 //    2. 类型断言
@@ -27,7 +21,8 @@
 interface ResultMap {
   [key: string]: number
 }
-const texts: string[] = ['clear', '÷', '7', '8', '9', '×', '4', '5', '6', '-', '1', '2', '3', '+', '0', '.', '='];
+
+const texts: string[] = ['clear', '/', '7', '8', '9', 'x', '4', '5', '6', '-', '1', '2', '3', '+', '0', '.', '='];
 const createButton = (content: string, className?: string): void => {
   const button: HTMLButtonElement = document.createElement('button');
   const div: HTMLDivElement = document.createElement('div');
@@ -62,8 +57,8 @@ const calculateResult = (number1: number, number2: number, operator: string): nu
   const resultMap: ResultMap = {
     '+': number1 + number2,
     '-': number1 - number2,
-    '×': number1 * number2,
-    '÷': number1 / number2
+    'x': number1 * number2,
+    '/': number1 / number2
   };
   return resultMap[operator];
 };
