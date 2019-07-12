@@ -104,6 +104,8 @@ createTree();
 
 
 ### 计算器
+[点击预览](https://wangkaiwd.github.io/typescript-notes/practice/index.html)
+
 > 这里笔者实现了2个版本的计算器：  
 > * [非面向对象版本](./demo03.ts)
 > * [面向对象版本](./demo04.ts)
