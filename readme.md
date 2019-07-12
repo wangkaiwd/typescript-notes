@@ -7,14 +7,11 @@
 * [快速开始](./getting%20start/readme.md)
 * [数据类型](./dataTypes/readme.md)
 * [接口](./interfaceNote/readme.md)
-* [类]
-* 案例实践
+* [类](./classNote/readme.md)
+* [案例实践](./practice/readme.md)
 
-### 项目实战
+### 结合框架
+* `Vue` + `TypeScript`
+* `React` + `TypeScript`
 
 
-
-### `todo`
-
-1. `tuple`、`emnu`(进一步理解)、`never`
-2. 用面向对象优化计算器
