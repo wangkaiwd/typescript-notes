@@ -1,4 +1,107 @@
 ## 案例实践
+这里我们会通过简单的小案例来复习巩固`TypeScript`中的一些常用语法，加深记忆，为之后的深入学习奠定基础。
+
+### 实现2个数之间的运算
+需求：通过`TypeScript`实现一个简单的命令行参数运算,在执行文件后依次传入三个参数： 1. 数字1 2. 数字2 3. 操作符，最终得到计算结果。
+```npm
+npx ts-node demo01 1 2 + => 3
+npx ts-node demo01 4 2 / => 2
+npx ts-node demo01 5 2 - => 3
+```
+![node-calculator](./screenshots/node-calculator.png)  
+
+代码如下：  
+```typescript
+const x: number = Number(process.argv[2]);
+const y: number = Number(process.argv[3]);
+const operator: string = process.argv[4];
+
+interface ResultMap {
+  [key: string]: number
+}
+
+const resultMap: ResultMap = {
+  'x': x * y,
+  '+': x + y,
+  '-': x - y,
+  '/': x / y
+};
+if (isNaN(x) || isNaN(y)) {
+  console.log('请输入2个数字');
+  // 失败退出,这里不能使用return
+  process.exit(1);
+}
+if (!Object.keys(resultMap).includes(operator)) {
+  console.log('请在第三个参数位置输入正确的操作符');
+  process.exit(1);
+}
+if (operator === '/' && y === 0) {
+  console.log('除数不能为0');
+  // 失败退出进程
+  process.exit(1);
+}
+console.log(resultMap[operator]);
+// 成功退出
+process.exit(0);
+```
+
+知识点小结：  
+* `TypeScript`类型转换
+* 通过`interface`来定义可以添加任意属性但是属性值必须是`number`的类型
+* `process.argv`: 返回一个数组，其中包含当启动`Node.js`进行时传入的命令行参数。类型为: `string[]`。
+* `process.exit`: 退出状态`code`指示`Node.js`同步地终止进程
+
+### 打印目录结构
+需求： 通过`TypeScript`实现一个简单的目录结构展示 
+
+实例如下：
+![ts-console-dir](./screenshots/ts-console-dir.png)
+
+代码如下：  
+```typescript
+class Tree {
+  name: string;
+  subFiles: Tree[] = [];
+
+  constructor (name: string) {
+    this.name = name;
+  }
+
+  makeSubFile (child: Tree): void {
+    this.subFiles.push(child);
+  }
+
+  display (n: number = 0): void {
+    if (n === 0) {console.log(this.name);}
+    n++;
+    const prefix = '--'.repeat(n);
+    this.subFiles.map(item => {
+      console.log(`${prefix} ${item.name}`);
+      item.display(n);
+    });
+  }
+}
+
+const createTree = (): void => {
+  for (let i = 1; i < 4; i++) {
+    const parent = new Tree(`dir${i}`);
+    for (let j = 1; j < 4; j++) {
+      const child = new Tree(`dir${i}${j}`);
+      const subChild = new Tree(`dir${i}${j}${i}`);
+      parent.makeSubFile(child);
+      child.makeSubFile(subChild);
+    }
+    parent.display();
+  }
+};
+createTree();
+```  
+知识点小结：  
+> 这里的目录结构其实是自己写死的，有兴趣的小伙伴可以进行进一步的优化
+
+* 用`class`来指定变量的类型
+* `String.prototype.repeat`: 构造并返回一个新字符串，该字符串包含被连接在一起的指定数量的字符串的副本
+
 
 ### 计算器
 > 这里笔者实现了2个版本的计算器：  
@@ -7,7 +110,7 @@
 > 
 > 这里讲的是面向对象版本的实现
 
-这里我们通过使用面向对象实现一个简单的计算器来巩固我们的`TS`中`class`的使用以及`DOM`操作。
+这里我们通过使用面向对象实现一个简单的计算器来巩固我们在`TS`中`class`的使用以及`DOM`操作。
 
 #### 配置代码编写环境
 首先我们新建`index.html`页面来引入生成的`js`文件：  

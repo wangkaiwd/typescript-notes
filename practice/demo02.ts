@@ -34,3 +34,5 @@ const createTree = (): void => {
   }
 };
 createTree();
+
+export {};

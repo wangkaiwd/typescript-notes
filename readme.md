@@ -9,6 +9,8 @@
 * [接口](./interfaceNote/readme.md)
 * [类](./classNote/readme.md)
 * [案例实践](./practice/readme.md)
+* 泛型
+* 函数
 
 ### 结合框架
 * `Vue` + `TypeScript`

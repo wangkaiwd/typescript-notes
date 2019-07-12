@@ -1,9 +1,11 @@
 const x: number = Number(process.argv[2]);
 const y: number = Number(process.argv[3]);
 const operator: string = process.argv[4];
+
 interface ResultMap {
   [key: string]: number
 }
+
 const resultMap: ResultMap = {
   'x': x * y,
   '+': x + y,
@@ -25,5 +27,6 @@ if (operator === '/' && y === 0) {
   process.exit(1);
 }
 console.log(resultMap[operator]);
-// 成功推出
+// 成功退出
 process.exit(0);
+export {};
