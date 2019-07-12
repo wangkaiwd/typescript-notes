@@ -9,6 +9,7 @@ class Human extends Animal {
   age: number;
 
   constructor (name: string, age: number) {
+    // 通过super来调用父类的constructor,而且一定要在访问this之前调用
     super();
     this.name = name;
     this.age = age;
