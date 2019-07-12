@@ -1,9 +1,12 @@
 class Calculator {
   element: HTMLElement;
+  resultBox: HTMLElement;
   textList: string[] = ['clear', '/', '7', '8', '9', 'x', '4', '5', '6', '-', '1', '2', '3', '+', '0', '.', '='];
+  result: string = '0';
 
   constructor (selector: string) {
     this.element = document.querySelector<HTMLElement>(selector)!;
+    this.createResultBox();
     this.initButtons();
     this.bindEvent();
   }
@@ -25,10 +28,40 @@ class Calculator {
     this.element.appendChild(div);
   }
 
+  createResultBox () {
+    const div: HTMLDivElement = document.createElement('div');
+    div.classList.add('result-box');
+    div.innerText = this.result;
+    this.element.appendChild(div);
+    this.resultBox = div;
+  }
+
   bindEvent () {
+    // 事件代理
     this.element.addEventListener('click', (e: MouseEvent) => {
-      console.log(e.target);
+      // e.target：指向事件触发的元素
+      // e.currentTarget: 指向事件绑定的元素
+      if (e.target instanceof HTMLElement) {
+        const text: string = e.target.innerText;
+        if ('0123456789.'.indexOf(text) !== -1) {
+          this.result = this.result + text;
+          this.resultBox.innerText = this.removeZero(this.result);
+        } else if ('+-x/'.indexOf(text) > -1) {
+          
+        }
+      }
     });
+  }
+
+  removeZero (result: string): string {
+    if (result.indexOf('0') === 0 && result.length > 0) {
+      result = result.slice(1);
+    }
+    return result;
+  }
+
+  getResult (n1: number, n2: number, operator: string) {
+
   }
 }
 
