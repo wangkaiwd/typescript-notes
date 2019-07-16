@@ -23,7 +23,12 @@ const delta5: boolean = true;
 // object
 const delta6: object = { name: 'Dog' };
 //null undefined 1 string true { name: 'Dog' }
-console.log(delta1, delta2, delta3, delta4, delta5, delta6);
+// array
+// 写法1：
+const delta7: string[] = ['1','2','3'];
+// 写法2：
+const delta8: Array<string> = ['1','2','3'];
+console.log(delta1, delta2, delta3, delta4, delta5, delta6, delta7, delta8);
 ```
 
 ### 任意值`any`
