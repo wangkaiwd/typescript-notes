@@ -10,7 +10,7 @@
 * [类](./classNote/readme.md)
 * [案例实践](./practice/readme.md)
 * 泛型
-* 函数
+* [函数](./functionNote/readme.md)
 
 ### 结合框架
 * `Vue` + `TypeScript`
