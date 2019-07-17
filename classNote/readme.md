@@ -1,7 +1,35 @@
 ## `TypeScript`中的类
-类是高配版的接口
+类也是用来描述一个对象的属性以及属性的类型，相比于接口，类在类型的基础上还会为对应的属性赋值、为对应的方法添加实现细节。换句话说，类就是高配版的接口。
 ### 继承
-类继承和接口继承的一个区别是：类继承需要通过`super`方法
+`TypeScript`使用`JavaScript`中的最新语法，和接口一样可以通过`extends`关键字来实现类的继承：  
+```typescript
+class Animal {
+  move (): void {
+    console.log('I am moving');
+  }
+}
+
+class Human extends Animal {
+  name: string;
+  age: number;
+
+  constructor (name: string, age: number) {
+    // 通过super来调用父类的constructor,而且一定要在访问this之前调用
+    super();
+    this.name = name;
+    this.age = age;
+  }
+
+  say (): void {
+    console.log('I am speaking');
+  }
+}
+
+const human1 = new Human('wangkaiwd', 12);
+// 可以直接调用继承自Animal中的方法
+human1.move();
+```
+这里需要注意的是，类继承除了要使用`extends`关键字之外，还需要在子类的构造函数中调用`super`,而且必须在访问`this`属性之前调用。
 
 ### 静态属性
 类的静态属性存在于类本身上面，而不是存在于类的实例上面：  
