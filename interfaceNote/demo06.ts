@@ -1,10 +1,13 @@
 interface Biology {
   think (): void;
 }
+
 interface Animal {
   // 函数声明
   sleep (): void;
 }
+
+// 继承一个接口
 // interface Human extends Animal {
 //   name: string;
 //   age: number;

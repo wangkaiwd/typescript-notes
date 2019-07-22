@@ -120,3 +120,41 @@ console.log('add', add.opposite(2, 1));
 ### 用接口来描述数组
 
 
+### 接口继承
+接口之间是可以相互继承的，这样我们能从一个接口里复制成员到另一个接口中，使接口运用更加灵活：  
+```typescript
+interface Biology {
+  think (): void;
+}
+
+interface Animal {
+  // 函数声明
+  sleep (): void;
+}
+
+// 继承一个接口
+// interface Human extends Animal {
+//   name: string;
+//   age: number;
+// }
+
+// 可以通过逗号分割来继承多个类
+interface Human extends Animal, Biology {
+  name: string;
+  age: number;
+}
+
+const human: Human = {
+  name: 'wangkaiwd',
+  age: 12,
+  sleep () {
+    console.log('I am sleeping');
+  },
+  think () {
+    console.log('I am thinking');
+  }
+};
+human.sleep();
+human.think();
+```
+这里我们可以看到，接口不仅可以继承一个接口，也可以继承多个接口，这极大的提升了代码的复用性和灵活性

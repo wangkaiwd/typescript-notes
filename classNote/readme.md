@@ -1,7 +1,35 @@
 ## `TypeScript`中的类
-类是高配版的接口
+类也是用来描述一个对象的属性以及属性的类型，相比于接口，类在类型的基础上还会为对应的属性赋值、为对应的方法添加实现细节。换句话说，类就是高配版的接口。
 ### 继承
-类继承和接口继承的一个区别是：类继承需要通过`super`方法
+`TypeScript`使用`JavaScript`中的最新语法，和接口一样可以通过`extends`关键字来实现类的继承：  
+```typescript
+class Animal {
+  move (): void {
+    console.log('I am moving');
+  }
+}
+
+class Human extends Animal {
+  name: string;
+  age: number;
+
+  constructor (name: string, age: number) {
+    // 通过super来调用父类的constructor,而且一定要在访问this之前调用
+    super();
+    this.name = name;
+    this.age = age;
+  }
+
+  say (): void {
+    console.log('I am speaking');
+  }
+}
+
+const human1 = new Human('wangkaiwd', 12);
+// 可以直接调用继承自Animal中的方法
+human1.move();
+```
+这里需要注意的是，类继承除了要使用`extends`关键字之外，还需要在子类的构造函数中调用`super`,而且必须在访问`this`属性之前调用。
 
 ### 静态属性
 类的静态属性存在于类本身上面，而不是存在于类的实例上面：  
@@ -21,8 +49,51 @@ console.log(Human.think); // 思考人生
 
 ### 修饰符
 
+```typescript
+class Animal {
+  // protected: 只可以在声明类及其子类中访问
+  protected gender: string;
+
+  constructor (gender: string) {
+    this.gender = gender;
+  }
+}
+class Human extends Animal {
+  // 在TypeScript中，成员都默认为public，可以被自由的访问
+  // public name: string;
+  // public age: number;
+  // 只读属性必须在声明时或构造函数里被初始化
+  readonly name: string;
+  age: number;
+  // private: 当成员被标记private时，它就不能在声明它的类的外部访问
+  private secret: string;
+
+  // public constructor() {...}
+  constructor (name: string, age: number) {
+    super('男');
+    this.name = name;
+    this.age = age;
+    this.secret = '保守秘密';
+  }
+
+  // public say () {...}
+  say (): void {
+    console.log(`my gender is ${this.gender}`);
+  }
+}
+
+const human = new Human('wangkaiwd', 12);
+human.say();
+// human.gender; // error, gender只能在Animal和它的子类中访问
+// console.log('secret', human.secret);// error, secret属性只有在Human内部才能访问
+// human.name = 'Tom'; 只读属性不能进行赋值
+```
+
 #### 参数属性
-参数属性可以方便地让我们在一个地方定义并初始化一个成员
+参数属性可以方便地让我们在一个地方定义并初始化一个成员，让我们少敲几次键盘，可以更快的定义类里的成员变量：  
+```typescript
+
+```
 
 ### 存取器
 我们可以通过在`class`的方法前添加`set`和`get`关键字来控制对对象成员的访问和赋值，这样可以在开发者进行设置值和赋值的时候可以进行一个逻辑处理：  

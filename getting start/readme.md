@@ -64,7 +64,7 @@ console.log(person);
 tsc demo01.ts
 node demo01.js
 ```
-![node-execute](./screenshots/node-execute.png)
+![](https://raw.githubusercontent.com/wangkaiwd/drawing-bed/master/node-execute.png)
 
 小伙伴们可能发现了，每次都要将`TypeScript`编译成`JavaScript`，然后在通过`Node`来运行会有一些繁琐，有没有什么办法可以直接通过`node`命令来运行`.ts`文件。  
 
@@ -213,6 +213,6 @@ document.body.innerHTML = greeter(person);
 tsc demo05.ts
 ```
 之后再浏览器中打开`html`文件  
-![webApp](./screenshots/webApp.png)
+![](https://raw.githubusercontent.com/wangkaiwd/drawing-bed/master/webApp.png)
 
 到这里我们已经了解了一个简单的`TypeScript`应用如何编写，接下来我们一起对其中的细节进行深入研究和应用。
