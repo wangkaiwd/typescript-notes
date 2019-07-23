@@ -1,5 +1,5 @@
 ## 泛型
-
+泛型可以根据我们传入参数的类型来决定其它对应的相同类型参数的类型，我们可以将对应的类型参数替换成相应的指定的类型来帮助我们进行类型分析。
 ### 初步使用泛型
 下面我们创建一个`returnIt`函数函数，这个函数会返回任何传入它的值，不使用泛型的话，我们可能会这样定义它：  
 ```typescript
@@ -85,4 +85,20 @@ const returnArrayFull3: ReturnArrayFull3 = (something) => {
 这里我们将之前函数类型、对象类型和接口类型与类型参数结合，来表示泛型类型。
 
 ### 泛型约束
+有时候，我们想通过泛型来操作某一类的一组值。比如我们只想操作有`length`属性的元素：  
+```typescript
+interface HasLength {
+  length: number
+}
+// 使用类型变量继承对应的接口，则传入的参数被限制为必须要有length属性
+const returnHasLengthElement = <T extends HasLength> (something: T): T => {
+  console.log(something.length);
+  return something;
+};
+// 12对应的number类型没有length属性
+// returnHasLengthElement(12) // TS2345: Argument of type '12' is not assignable to parameter of type 'HasLength'
 
+// 字符串是有length属性的
+console.log(returnHasLengthElement('12')); // 12 字符串
+```
+这样在我们调用函数的时候，传入的参数必须要有指定的属性，否则就会出现错误提示
