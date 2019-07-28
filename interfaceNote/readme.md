@@ -117,8 +117,36 @@ console.log('add', add.opposite(2, 1));
 ```
 这里我们通过一个自执行函数来让返回值符合接口描述的类型
 
-### 用接口来描述数组
+### 可索引类型
+我们也可以通过接口来描述一个对象`key`和`value`分别对应的类型，下面是一个例子： 
+```typescript
+// 对象的属性为任意字符串，属性值为数值
+interface NumberObject {
+  [key: string]: number
+}
 
+// 这里的属性值必须为number类型
+// const obj1: NumberObject = { name: 'wangkaiwd', age: 12 }; // Type 'string' is not assignable to type 'number'.
+const obj1: NumberObject = { name: 11, age: 12 }; // ok
+
+// 数组中每一项都是字符串
+interface StringArray {
+  [key: number]: string
+}
+
+// string类型不能分配给number
+// const arr: StringArray = [1,2]; //TS2322: Type 'string' is not assignable to type 'number'.
+
+const arr: StringArray = ['1', '2']; // OK
+```
+这里需要注意的一点是，当我们使用索引类型的时候，它会要求接口中所有属性和属性值都必须与索引类型项匹配：
+```typescript
+interface NumberObject {
+  [key: string]: number;
+  hairColor: string // TS2411: Property 'hairColor' of type 'string' is not assignable to string index type 'number'.
+}
+```
+上面我们定义了`hairColor`属性的属性值得类型为`string`，`TypeScript`会提示我们不能将字符串类型分配给`number`
 
 ### 接口继承
 接口之间是可以相互继承的，这样我们能从一个接口里复制成员到另一个接口中，使接口运用更加灵活：  

@@ -48,7 +48,13 @@ console.log(Human.think); // 思考人生
 可以看到我们会通过`static`关键字来定义静态属性，而且只能通过`[类名.属性名]`的方式来访问，直接在实例上访问会有错误提示
 
 ### 修饰符
+在`TypeScript`中，主要有以下几种成员修饰符：  
+* `private`: 只能在声明它的类中进行访问
+* `public`：成员变量的默认修饰符，在它的声明类以及子类和实例对象中都可以随意访问
+* `protected`：只能在声明它的类及其子类中进行访问
+* `readonly`: 初始化后将不能被修改
 
+下面是这几种修饰符的用法案例：
 ```typescript
 class Animal {
   // protected: 只可以在声明类及其子类中访问
@@ -89,11 +95,41 @@ human.say();
 // human.name = 'Tom'; 只读属性不能进行赋值
 ```
 
+可以看到`TypeScript`的`class`相较于`JavaScript`的构造函数来说，更多的是提供了一些关键字来代表不同的语法含义，从而实现各种功能
+
 #### 参数属性
 参数属性可以方便地让我们在一个地方定义并初始化一个成员，让我们少敲几次键盘，可以更快的定义类里的成员变量：  
 ```typescript
+class Human {
+  // private name: string;
+  // public age: number;
+  // readonly gender: string;
+  //
+  // constructor (name: string, age: number, gender: string) {
+  //   this.name = name;
+  //   this.age = age;
+  //   this.gender = gender;
+  // }
 
+  // 上面的写法等价于
+  constructor (private name: string, public age: number, readonly gender: string) {
+
+  }
+
+  say (): void {
+    console.log('I am speaking');
+  }
+}
+
+const human = new Human('wangkaiwd', 12, '男');
+console.log(human.age);
+human.say();
+// name是私有属性，只能在class Human内使用
+// console.log(human.name); // TS2341: Property 'name' is private and only accessible within class 'Human'.
+// 不能为gender分配值，因为它是一个只读属性
+// human.gender = '女'; // TS2540: Cannot assign to 'gender' because it is a read-only property.
 ```
+参数属性其实就是为`constructor`中的参数添加一个修饰符，这样`TS`就会帮我们自动定义并初始化一个成员变量，很大程度上简化了代码
 
 ### 存取器
 我们可以通过在`class`的方法前添加`set`和`get`关键字来控制对对象成员的访问和赋值，这样可以在开发者进行设置值和赋值的时候可以进行一个逻辑处理：  
