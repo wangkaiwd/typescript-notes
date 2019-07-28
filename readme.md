@@ -9,11 +9,10 @@
 * [接口](./interfaceNote/readme.md)
 * [类](./classNote/readme.md)
 * [案例实践](./practice/readme.md)
-* 泛型
 * [函数](./functionNote/readme.md)
+* [泛型](./genericsNote/reademe.md)
 
-### 结合框架
-* `Vue` + `TypeScript`
-* `React` + `TypeScript`
+### 综合实战
+* `React hooks+TypeScript+webpack`实现`ui`组件库
 
 
