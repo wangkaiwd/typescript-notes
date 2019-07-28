@@ -9,4 +9,13 @@ const getName = (n: NameOrNameHandle): Name => {
     return n();
   }
 };
+
+// 类型别名中使用泛型：
+type Container<T> = { value: T }
+
+// 类型别名和接口：
+type Alias = { num: number }
+interface Interface {
+  num: number;
+}
 export {};
