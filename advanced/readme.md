@@ -138,7 +138,42 @@ type X = keyof Person; // X 的类型为 'name' | 'age'
 
 下面是`Readonly`和`Partial`的代码演示：  
 ```typescript
+interface Person {
+  name: string;
+  age: number;
+}
 
+// 将Person的每个属性都变为只读属性
+interface PersonReadOnly {
+  readonly name: string;
+  readonly age: number;
+}
+
+// 通过Readonly来进行简写
+type PersonReadOnly2 = Readonly<Person>;
+
+// Readonly源码
+// type Readonly<T> = {
+//   readonly [P in keyof T]: T[P];
+// };
+
+// 将Person的每个属性都变为可选
+interface PersonPartial {
+  name?: string;
+  age?: number;
+}
+
+// 通过Partial来进行简写
+type PersonPartial2 = Partial<Person>
+
+// Partial源码
+// type Partial<T> = {
+//   [P in keyof T]?: T[P];
+// };
 ```
+
+`Readonly`和`Partial`并不是新的知识，它是结合旧有知识实现的一个类型别名，我们可以通过阅读源码来理解它们的实现。
+
+像这样的映射类型还有很多，如`Record`、`Pick`、`Required`等，我们都可以在源码中查看它们的实现。
 
 
