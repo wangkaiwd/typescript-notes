@@ -88,6 +88,46 @@ interface LiteralType3 {
 上边的代码演示了类型字面量和常用类型的结合使用，可以看到类型别名可以帮助我们可以更好的缩小变量类型的取值范围，提升代码的严谨性。
 
 ### 索引类型查询操作符和索引访问操作符
+这里我们通过一个获取对象属性值的例子来学习**索引类型查询**和**索引访问**操作符：  
+```typescript
+interface Person {
+  name: string;
+  age: number;
+}
+// 索引类型查询操作符： 对于任意类型T,keyof T的结果为T上已知的公共属性名的联合
+// 索引访问操作符：T[K] 在这里表示person['name']具有类型Person['name']即string('age'同理)
+const getValues = <T, K extends keyof T> (o: T, names: K[]): T[K][] => {
+  // 为了防止o[name]是undefined,要确保names数组中的每一项都包含在o的属性中
+  return names.map(name => o[name]);
+};
+
+// keyof Person是完全可以与 'name'|'age'互相替换的，不同的是当我们为Person添加了新的属性，keyof Person也会自动添加新的属性
+
+// console.log(getValues({ name: 'wangkaiwd', age: 12 }, ['age', 'name'])); // [12,'wangkaiwd']
+// 完整语法
+getValues<Person, keyof Person>({ name: 'wangkaiwd', age: 12 }, ['age', 'name']);
+
+const getValue = <T, K extends keyof T> (o: T, name: K): T[K] => {
+  return o[name];
+};
+const person: Person = {
+  name: 'ts1',
+  age: 2
+};
+console.log(getValue(person, 'age')); // 2
+```
+上面的例子中有下面2个新语法：  
+* `keyof T`
+* `T[K]`
+
+这就是我们要学习的索引类型查询和索引访问操作符。
+
+对于任何类型`T`, `keyof T`表示`T`上的已知公共属性名的联合，在上面的例子中为`name|age`。相较于类型字面量，它会会在`T`的类型发生变化的时候也会跟随变化，更加灵活。
+
+而`T[K]`相类似于我们在`JavaScript`中获取对象的属性值，只不过这里是获取对应属性值的类型。在上面的例子中类型有如下映射关系：  
+* `person['name']` => `Person['name']`
+* `person['age']` => `Person['age']`
+
 
 ### `Readonly`和`Partial`
 
