@@ -97,6 +97,9 @@ interface Person {
 // 索引类型查询操作符： 对于任意类型T,keyof T的结果为T上已知的公共属性名的联合
 // 索引访问操作符：T[K] 在这里表示person['name']具有类型Person['name']即string('age'同理)
 const getValues = <T, K extends keyof T> (o: T, names: K[]): T[K][] => {
+  // T => { name: string, age:number }
+  // keyof T => 'name' | 'age'
+  // K extends T => 'name' | 'age'
   // 为了防止o[name]是undefined,要确保names数组中的每一项都包含在o的属性中
   return names.map(name => o[name]);
 };
@@ -115,6 +118,8 @@ const person: Person = {
   age: 2
 };
 console.log(getValue(person, 'age')); // 2
+
+type X = keyof Person; // X 的类型为 'name' | 'age'
 ```
 上面的例子中有下面2个新语法：  
 * `keyof T`
@@ -128,6 +133,12 @@ console.log(getValue(person, 'age')); // 2
 * `person['name']` => `Person['name']`
 * `person['age']` => `Person['age']`
 
-
 ### `Readonly`和`Partial`
+`TypeScript`提供了从旧类型中创建新类型的一种方式 -- 映射类型。我们通过介绍2个比较常用的映射类型`Readonly`和`Partial`来学习部分内容。
+
+下面是`Readonly`和`Partial`的代码演示：  
+```typescript
+
+```
+
 
