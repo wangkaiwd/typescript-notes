@@ -22,12 +22,12 @@
 
 * [快速开始](https://github.com/wangkaiwd/typescript-notes/blob/master/getting%20start/readme.md)
 * [数据类型](https://github.com/wangkaiwd/typescript-notes/blob/master/dataTypes/readme.md)
-* [接口](https://github.com/wangkaiwd/typescript-notes/blob/master/functionNote/readme.md)
+* [接口](https://github.com/wangkaiwd/typescript-notes/blob/master/interfaceNote/readme.md)
 * [类](https://github.com/wangkaiwd/typescript-notes/blob/master/classNote/readme.md)
 * [案例实践](https://github.com/wangkaiwd/typescript-notes/blob/master/practice/readme.md)
 * [函数](https://github.com/wangkaiwd/typescript-notes/blob/master/functionNote/readme.md)
 * [泛型](https://github.com/wangkaiwd/typescript-notes/blob/master/genericsNote/reademe.md)
-* [高级类型](https://github.com/wangkaiwd/typescript-notes/blob/master/advanced/reademe.md)
+* [高级类型](https://github.com/wangkaiwd/typescript-notes/blob/master/advanced/readme.md)
 
 
 这里着重说一下，如果你是`React+TypeScript`开发者的话可以参考下边这个`git`仓库，里面涵盖了`React+TypeScript`以及`React Hooks`和`TypeScript`结合的相关知识，也对笔者的学习过程起到了极大的帮助：
