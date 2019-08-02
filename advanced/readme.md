@@ -177,3 +177,4 @@ type PersonPartial2 = Partial<Person>
 像这样的映射类型还有很多，如`Record`、`Pick`、`Required`等，我们都可以在源码中查看它们的实现。
 
 ### 可辨识联合
+
