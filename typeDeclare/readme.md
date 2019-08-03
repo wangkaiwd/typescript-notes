@@ -58,6 +58,30 @@ export default printPerson;
 不过有时候我们需要为一些已经写好的`JavaScript`代码提供类型声明文件，来让它可以在被`TypeScript`文件中使用时拥有类型。
 
 最简单的做法是这样的：在`.js`文件同级目录结构下建立`.d.ts`文件声明类型：  
- 
+```typescript
+// demo02.js
+const add = (n1, n2) => {
+  return n1 + n2;
+};
 
+const minus = (n1, n2) => {
+  return n1 - n2;
+};
+export { minus };
+export default add;
+// demo02.d.ts
+// 顶级的声明文件要在前面添加declare或者直接export导出
+declare function add (n1: number, n2: number): number;
+export function minus (n1: number, n2: number): number;
+export default add;
+
+// demo03.ts
+import add, { minus } from './demo02';
+
+add(1, 2);
+// add(1, '2'); // error: Argument of type '"2"' is not assignable to parameter of type 'number'.
+
+minus(4, 2);
+```
+当我们为`demo02.js`添加了类型声明文件之后,在`demo03.ts`中使用的时候就会进行类型校验，这样当我们传入的类型不符合要求时就会有错误提示。
     
