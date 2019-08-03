@@ -9,6 +9,7 @@
 > * [`TypeScript`入门教程](https://ts.xcatliu.com/)
 
 笔者学习笔记整理： 
+
 * [思维导图](https://wangkaiwd.github.io/typescript-notes/misc/TypeScript%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86)
 * [快速开始](https://github.com/wangkaiwd/typescript-notes/blob/master/getting%20start/readme.md)
 * [数据类型](https://github.com/wangkaiwd/typescript-notes/blob/master/dataTypes/readme.md)
