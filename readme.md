@@ -1,6 +1,9 @@
 ## `TypeScript`学习手记
 > 记录了自己从零开始学习`TypeScript`的学习历程,希望能在时间流逝中留下些许痕迹
 
+
+![](https://raw.githubusercontent.com/wangkaiwd/drawing-bed/master/TypeScriptBrainMap.png)
+
 最近有在论坛看到国外的大神使用`react hooks`只做了一个计算器：  
 ![react-calculator-twice.gif](https://i.loli.net/2019/07/25/5d3903b642d2728487.gif)
 
@@ -17,6 +20,9 @@
 >
 > * [`TypeScript`官方文档](https://www.tslang.cn/docs/home.html)
 > * [`TypeScript`入门教程](https://ts.xcatliu.com/)
+> * [思维导图]()
+
+
 
 笔者学习笔记整理： 
 
