@@ -177,4 +177,53 @@ type PersonPartial2 = Partial<Person>
 像这样的映射类型还有很多，如`Record`、`Pick`、`Required`等，我们都可以在源码中查看它们的实现。
 
 ### 可辨识联合
+当满足滴定条件的时候，`TypeScript`会对我们使用到的联合类型进行分辨，它可以清楚的直到我们到底使用的是联合类型中的哪一个类型。
 
+下面是一个例子来演示`TypeScript`对联合类型的辨别：  
+```typescript
+// 要求：更新的时候需要id,创建的时候不需要id
+interface Action {
+  type: 'create' | 'update';
+  id?: number;
+  name: string;
+}
+// 接口并不能实现这个需求，我们需要通过联合类型来实现
+interface Action1 {
+  type: 'create';
+  name: string;
+  test: number;
+}
+
+interface Action2 {
+  type: 'update';
+  id: number;
+  name: string;
+  test: string;
+}
+
+type Action3 = Action1 | Action2
+
+// TS 可以通过一个特征值来区分类型
+// 可识别类型的前提： 1. 有一个共有的字段  2. 共有字段为字面量类型
+// 当符合这俩个条件的时候，TypeScript就会自动区分出对应的联合类型
+const reducer = (state: any, action: Action3) => {
+  // 通过type可以区分当前到底是类型Action1 或者 Action2
+  if (action.type === 'create') {
+    console.log('name', action.name);
+  } else {
+    console.log('id', action.id);
+  }
+  // 不能通过类型来进行类型识别
+  // if (typeof action.test === 'number') {
+  //   console.log(action.name);
+  // } else {
+  //   console.log(action.id);
+  // }
+};
+```
+
+`TypeScript`通过一个特征值:`type`对联合类型进行区分，它知道在`else`中`action`的类型是`Action3`,所以可以直接使用`id`属性。
+
+要想让`TypeScript`能够自己识别类型是有前提的，比如例子中的`type`，它具有如下特征：  
+* 有一个共有的字段
+* 该共有字段是是可穷举的(字面量类型)
